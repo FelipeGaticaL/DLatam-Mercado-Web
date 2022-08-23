@@ -1,0 +1,82 @@
+<main class="container-fluid my-3 mx-auto row col-7 ">
+    <div class="d-flex justify-content-center b-5">
+        <h1>Bienvenido al Market</h1>
+     </div>
+     
+    {{#each productos}}
+    {{> productos }}
+
+    {{/each}}
+ 
+{{!-- modal --}}
+<div class="modal body" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="fa-solid fa-cart-shopping modal-title" id="productModalLabel"> Carrito</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            {{!-- Elemento para imprimir productos --}}
+            <div id="ProductosModal" class="modal-body row"  >
+            </div>
+            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" onclick="EliminarProductos()">Limpiar Carro</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+  let carro = [];
+
+
+  function agregarProductos(producto){
+
+    carro.push(producto);
+    Array.prototype.unicos = function(){
+      return [... new Set(this)];
+    }
+    let carrito = carro.unicos()
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+    ImprimirModal(carrito)
+    }
+
+
+  function ImprimirModal(carrito){
+    document.querySelector("#ProductosModal").innerHTML = carrito.map((producto,indice)=>{
+      return `<img src="assets/imgs/product/${producto}.png" class="col-3 btn " alt="imagen Producto" onclick="ElminarProducto('${producto}')"/>`
+    }).join("");    
+  } 
+
+  function EliminarProductos(){
+    
+   let carrito = JSON.parse(localStorage.getItem("carrito")) 
+   carrito.splice(0);
+   localStorage.setItem("carrito", JSON.stringify(carrito));
+   
+   ImprimirModal(carrito)
+   return carro =  carrito
+  }
+
+{{!-- Cómo usar lodash aquí --}}
+
+  function ElminarProducto(producto){
+    console.log(producto)
+    let carrito = carro.filter( e => e !== producto)
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+    ImprimirModal(carrito)
+    console.log(carrito)
+    console.log(carro)
+    return carro =  carrito
+  }
+
+
+  
+</script>
+
+
+
+    
+</main>

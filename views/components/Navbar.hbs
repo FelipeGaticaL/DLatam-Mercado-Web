@@ -1,0 +1,20 @@
+
+<nav class="navbar navbar-dark bg-success ">
+    <div class="container-fluid d-flex justify-content-center">
+        <div onclick="MostrarProductos()" class="btn navbar-brand fa-solid fa-cart-shopping" data-bs-toggle="modal" data-bs-target="#productModal"></div>
+        </div>
+    
+</nav>
+
+<script>
+    
+    function MostrarProductos(){
+        console.log(localStorage.getItem("carrito"))
+        
+        let carrito = JSON.parse(localStorage.getItem("carrito")) 
+        ImprimirModal(carrito)
+     
+     
+  } 
+
+</script>
